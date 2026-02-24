@@ -57,98 +57,7 @@ WHERE i.last_purchase IS NULL
 
 
 
------------------------------------- SALES & REVENUE ANALYSIS ----------------------------------------
-
--- 6.What are the monthy revenue trends for the last two years
-
-SELECT 
-    DATE(DATE_TRUNC('month', invoice_date)) AS month, 
-    SUM(total) AS monthly_revenue
-FROM invoice
-WHERE invoice_date >= (SELECT MAX(invoice_date) FROM invoice) - INTERVAL '2 years'
-GROUP BY month
-ORDER BY month;
-
-
--- 7.What is the average value of an invoice(purchase)
-
-SELECT ROUND(AVG(total),2) AS avg_invoice_value
-FROM invoice;
-
-
--- 8.How much revenue does each sales representative contribute
-
-SELECT e.employee_id, 
-	   e.employee_name, 
-	   SUM(i.total) AS total_revenue_contribution
-FROM employee e
-LEFT JOIN customer c ON e.employee_id = c.support_rep_id
-JOIN invoice i ON c.customer_id = i.customer_id
-GROUP BY 1
-ORDER BY total_revenue_contribution DESC;
-
-
--- 9.which months or quarters have peak music sales
-
-SELECT TO_CHAR(invoice_date, 'Month') AS month, SUM(total) AS total_revenue
-FROM invoice
-GROUP BY month
-ORDER BY total_revenue DESC;
-
-
--------------------------------------- PRODUCT & CONTET ANALYSIS -----------------------------------------
-
--- 10.Which tracks generated the most revenue
-
-SELECT il.track_id, t.name AS track, SUM(il.unit_price * il.quantity) AS total_revenue
-FROM invoice_line il
-JOIN track t
-ON il.track_id = t.track_id
-GROUP BY il.track_id, t.name
-ORDER BY total_revenue DESC;
-
-
--- 11. Which albums or playlists are most frequently included in purchases?
-
-SELECT a.title AS album_title, COUNT(il.invoice_line_id) AS purchase_count
-FROM album a
-JOIN track t ON a.album_id = t.album_id
-JOIN invoice_line il ON t.track_id = il.track_id
-GROUP BY 1
-ORDER BY purchase_count DESC;
-
-
--- 12. Are there any tracks or albums that have never been purchased?
-
-SELECT t.track_id, t.name
-FROM track t
-LEFT JOIN invoice_line il ON t.track_id = il.track_id
-WHERE il.invoice_line_id IS NULL;
-
-
--- 13. What is the average price per track across different genres?
-
-SELECT g.name AS genre, ROUND(AVG(t.unit_price), 2) AS avg_price
-FROM genre g
-JOIN track t ON g.genre_id = t.genre_id
-GROUP BY genre
-ORDER BY avg_price DESC;
-
-
--- 14. How many tracks does the store have per genre and how does it correlate with sales?
-
-SELECT 
-    g.name AS genre, 
-    COUNT(DISTINCT t.track_id) AS track_count, 
-    SUM(il.quantity) AS total_sold
-FROM genre g
-JOIN track t ON g.genre_id = t.genre_id
-LEFT JOIN invoice_line il ON t.track_id = il.track_id
-GROUP BY genre
-ORDER BY total_sold DESC;
-
-
---------------------------------------- Artist & Genre Performance -------------------------------------------
+-------------------------------------- Artist & Genre Performance ------------------------------------------
 
 -- 15. Who are the top 5 highest-grossing artists?
 
@@ -295,7 +204,7 @@ SELECT
 FROM genre_counts;
 
 
------------------------------------ Operational Optimization ---------------------------------------------
+------------------------------------- Operational Optimization ---------------------------------------------
 
 -- 27. What are the most common combinations of tracks purchased together?
 
@@ -322,4 +231,4 @@ JOIN invoice i ON il.invoice_id = i.invoice_id
 GROUP BY 1, 2
 ORDER BY 1, 2;
 
-
+  
