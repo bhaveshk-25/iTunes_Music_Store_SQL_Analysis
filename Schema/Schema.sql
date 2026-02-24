@@ -1,4 +1,5 @@
---------------- INDEPENDENT TABLES --------------------------------
+---------------------------------- INDEPENDENT TABLES ----------------------------------
+
 -- 1. Artist
 CREATE TABLE artist (
     artist_id INT PRIMARY KEY,
@@ -42,7 +43,7 @@ CREATE TABLE employee (
     email VARCHAR(60)
 );
 
------------- TABLES WITH SINGLE DEPENDENCY --------------------------------
+-------------------------------- TABLES WITH SINGLE DEPENDENCY ----------------------------------
 
 -- 6. Album
 CREATE TABLE album (
@@ -67,7 +68,7 @@ CREATE TABLE customer (
     support_rep_id INT REFERENCES employee(employee_id)
 );
 
------------- TABLES WITH MULTIPLE DEPENDENCIES --------------------------------
+----------------------------------- TABLES WITH MULTIPLE DEPENDENCIES -----------------------------------
 
 -- 8. Track
 CREATE TABLE track (
@@ -95,7 +96,7 @@ CREATE TABLE invoice (
     total NUMERIC(10,2) NOT NULL
 );
 
------------- JUNCTION TABLES --------------------------------
+----------------------------------- JUNCTION TABLES ----------------------------------------
 
 -- 10. Invoice Line
 CREATE TABLE invoice_line (
