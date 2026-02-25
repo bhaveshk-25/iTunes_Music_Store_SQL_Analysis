@@ -47,7 +47,7 @@ itunes-music-analysis/
 - Double down on high-performing genres (Rock) while diversifying emerging genres
 - Allocate marketing investment to high-value regions (Czech Republic)
 - Target underserved regions with localized promotions
-#### Estimated potential revenue uplift: 10–15%
+### 🎯Impact - Estimated potential revenue uplift: 10–15%
 
 ## 🛠️ Tools & Technologies
 - SQL (PostgreSQL)
