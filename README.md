@@ -7,7 +7,7 @@
      - About the dataset
 - Analysis Output
 - Tech used
-- Impact
+- Recommendations and Impact
   
 ## 📌 Project Overview
 
